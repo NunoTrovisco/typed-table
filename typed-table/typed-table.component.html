@@ -1,0 +1,31 @@
+<div *ngIf="hasSearch" class="input-group">
+    <input type="text" class="form-control" placeholder="{{_l.SEARCH_ISIN_NAME_PLACEHOLDER}}">
+    <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button"><span
+                                            class="glyphicon glyphicon-search"></span></button>
+                                </span>
+</div><!-- /input-group -->
+
+<div class="table-responsive">
+    <table class="table">
+        <tr>
+            <th *ngFor="let header of headers">{{header.text}}</th>
+        </tr>
+        <tr *ngFor="let row of content">
+            <td *ngFor="let cell of row; let i = index">
+                <p *ngIf="headers[i].type == TypedTableHeaderTypes.BOOLEAN">
+                    <span class="glyphicon"
+                          [ngClass]="{'glyphicon-ok': cell.value==true, 'glyphicon-remove': cell.value==false}"></span>
+                </p>
+
+                <p *ngIf="headers[i].type == TypedTableHeaderTypes.STRING">
+                    {{cell.value}}
+                </p>
+
+                <p *ngIf="headers[i].type == TypedTableHeaderTypes.NUMBER">
+                    {{cell.value}} <!--TODO: Apply mask/formatter callback-->
+                </p>
+            </td>
+        </tr>
+    </table>
+</div>
